@@ -8,23 +8,17 @@ function getSolutions(a, b, c)  {
     let x2;
     
     let D = Math.pow(b, 2) - (4 * a * c);
-    rez.D = D;
 
     if (D === 0) {
-        x1 = -b / (2 * a);
-        x[0] = x1;
+        x[0] = -b / (2 * a);
+        x[1] = x[0];
     } else if (D > 0) {
-        x1 = (-b + Math.sqrt(D)) / (2 * a); 
-        x2 = (-b - Math.sqrt(D)) / (2 * a);
-        x[0] = x1;
-        x[1] = x2;
+        x[0] = (-b + Math.sqrt(D)) / (2 * a); 
+        x[1] = (-b - Math.sqrt(D)) / (2 * a);
     }
     rez.roots = x;
     return {
-        rez,
         D,
-        x1,
-        x2,
         x,
     }
 }
@@ -134,26 +128,22 @@ getAverageScore({});
 function getPersonData(secretData){
 
   let totalSecret ={};
-  let secret;
 
-  secret = secretData.aaa;
-  totalSecret.firstName = getDecodedValue(secret);
-
-  secret = secretData.bbb;
-  totalSecret.lastName = getDecodedValue(secret);
+  totalSecret.firstName = getDecodedValue(secretData.aaa);
+  
+  totalSecret.lastName = getDecodedValue(secretData.bbb);
 
   console.log(totalSecret);
 }
 
 function getDecodedValue(secret){
-    let total;
+
     if (secret === 0) {
-        total = 'Родриго';
+        return 'Родриго';
     }
     if (secret === 1) {
-        total = 'Эмильо';
+        return 'Эмильо';
     }
- return total;
 }
 getPersonData({ aaa : 0 ,  bbb : 0 });
 getPersonData({ aaa : 1 ,  bbb : 1 });
