@@ -1,40 +1,42 @@
 // задача 1
 
-class Weapon{
-    constructor(name, attack, durability, range){
-    this.name = name;
-    this.attack = attack;
-    this.durability = durability;
-    this.range = range;
-    this.firsDurab = this.durability;
-    }
+// class Weapon{
+//     constructor(name, attack, durability, range){
+//     this.name = name;
+//     this.attack = attack;
+//     this.durability = durability;
+//     this.range = range;
+//     }
 
-    takeDamage(damage){
+//     takeDamage(damage){
       
-        this.durability= (this.durability - damage);
-        if (this.durability < 0) {
-            this.durability = 0;
-        }
-       return (this.durability);
-    }
-    getDamage(){
+//         this.durability= (this.durability - damage);
+//         if (this.durability < 0) {
+//             this.durability = 0;
+//         }
+//        return (this.durability);
+//     }
+//     getDamage(){
     
-        if (this.durability === 0){
-            this.attack = 0;
-        }
+//         if (this.durability === 0){
+//             this.attack = 0;
+//         }
      
-        if (this.durability >= this.firsDurab * 0.3){
-            this.attack = this.attack /2;  
-    }
-        return this.attack;
-    }
+//         if (this.durability <= this.firsDurab * 0.3){
+//             this.attack = this.attack /2;  
+//     }
+//         return this.attack;
+//     }
 
-    isBroken(){
-        if (this.durability > 0) {
-            return false;
-        }
-    }
-}
+//     isBroken(){
+//         if (this.durability > 0) {
+//             return false;
+//         } else {
+//             return true;
+//         }
+//     }
+// }
+
 const arm = new Weapon('Рука', 1, Infinity, 1);
 const bow = new Weapon('Лук', 10, 200, 3);
 const sword = new Weapon('Меч', 25, 500, 1);
@@ -121,7 +123,7 @@ class Weapon{
             this.attack = 0;
         }
      
-        if (this.durability >= this.firsDurab * 0.3){
+        if (this.durability <= this.firsDurab * 0.3){
             this.attack = this.attack /2;  
     }
         return this.attack;
@@ -130,6 +132,8 @@ class Weapon{
     isBroken(){
         if (this.durability > 0) {
             return false;
+        } else {
+            return true;
         }
     }
 }
@@ -194,7 +198,7 @@ class LongBow extends Bow {
         this.firsDurab = this.durability;
     }
 }
-class BigSword extends Sword {
+class Axe extends Sword {
     constructor(){
         super();
         this.name = 'Секира';
@@ -206,7 +210,7 @@ class BigSword extends Sword {
 class StormStaff extends Staff {
     constructor(){
         super();
-        this.name = 'Посох бури';
+        this.name = 'Посох Бури';
         this.attack = 10;
         this.range = 3;
         this.firsDurab = this.durability;
@@ -220,7 +224,7 @@ const knife = new Knife();
 const staff = new Staff();
 
 const longBow = new LongBow(); 
-const bigSword = new BigSword();
+const axe = new Axe();
 const stormStaff = new StormStaff()
 
 
