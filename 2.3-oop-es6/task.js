@@ -1,114 +1,14 @@
 // задача 1
 
-// class Weapon{
-//     constructor(name, attack, durability, range){
-//     this.name = name;
-//     this.attack = attack;
-//     this.durability = durability;
-//     this.range = range;
-//     }
-
-//     takeDamage(damage){
-      
-//         this.durability= (this.durability - damage);
-//         if (this.durability < 0) {
-//             this.durability = 0;
-//         }
-//        return (this.durability);
-//     }
-//     getDamage(){
-    
-//         if (this.durability === 0){
-//             this.attack = 0;
-//         }
-     
-//         if (this.durability <= this.firsDurab * 0.3){
-//             this.attack = this.attack /2;  
-//     }
-//         return this.attack;
-//     }
-
-//     isBroken(){
-//         if (this.durability > 0) {
-//             return false;
-//         } else {
-//             return true;
-//         }
-//     }
-// }
-
-const arm = new Weapon('Рука', 1, Infinity, 1);
-const bow = new Weapon('Лук', 10, 200, 3);
-const sword = new Weapon('Меч', 25, 500, 1);
-const knife = new Weapon('Нож', 5, 300, 1);
-const staff = new Weapon('Посох', 8, 300, 2);
-
-console.table([arm,bow,sword,knife,staff], ['name', 'attack', 'durability', 'range']);
-
-const longBow = new Weapon('Длинный лук', 15, bow.durability , 4);
-const bigSword = new Weapon('Секира', 27, 800, sword.range);
-const stormStaff = new Weapon('Посох бури', 10, staff.durability, 3);
-
-console.table([longBow, bigSword, stormStaff], ['name', 'attack', 'durability', 'range'])
-
-// проверки
-// сила удара соперника < прочности, атака уменьшена
-bow.takeDamage(140);
-console.log(bow.durability); 
-console.log(bow.getDamage()); 
-console.log(bow.isBroken()); 
-// 60
-//  5
-// false
-
-// сила удара соперника < прочности,  атака не уменьшена(условие не выполнено)
-bow.takeDamage(160);
-console.log(bow.durability); 
-console.log(bow.getDamage()); 
-console.log(bow.isBroken()); 
-// 40
-// 10
-// false
-
-// Прочность оружия бесконечность
-arm.takeDamage(20);
-console.log(arm.durability); 
-console.log(arm.getDamage()); 
-console.log(arm.isBroken()); 
-// Infinity
-// 0.5 (нет условия в задаче на уровень атаки в этом случае, поэтому уменьшилась)
-// false
-
-// Сила удара = прочности => атака =0 
-knife.takeDamage(300);
-console.log(knife.durability); 
-console.log(knife.getDamage()); 
-console.log(knife.isBroken());
-// 0
-// 0
-// undefined
-
-// Уменьшаем прочность ниже 0
-staff.takeDamage(500);
-console.log(staff.durability); 
-console.log(staff.getDamage()); 
-console.log(staff.isBroken());
-// 0
-// 0
-// undefined
-
-
-// Задача 2
-
 class Weapon{
-    constructor(name, attack, durability, range){
+    constructor({name, attack, durability, range}){
     this.name = name;
     this.attack = attack;
     this.durability = durability;
     this.range = range;
-    this.firsDurab = this.durability;
+    this.durabilityFirst = durability;
     }
-
+  
     takeDamage(damage){
       
         this.durability= (this.durability - damage);
@@ -119,14 +19,18 @@ class Weapon{
     }
     getDamage(){
     
+        console.log(this.durabilityFirst);
+
         if (this.durability === 0){
             this.attack = 0;
         }
      
-        if (this.durability <= this.firsDurab * 0.3){
-            this.attack = this.attack /2;  
-    }
-        return this.attack;
+        if (this.durability >= this.durabilityFirst * 0.3){
+            return (this.attack);  
+        }
+        else {
+            return (this.attack/2); 
+        }
     }
 
     isBroken(){
@@ -138,64 +42,50 @@ class Weapon{
     }
 }
 
+const sword = new Weapon({
+    name: 'Старый меч',
+    attack: 20,
+    durability: 10,
+    range: 1,
+  });
+
+  sword.takeDamage(5);
+console.log(sword.durability); // 5
+console.log(sword.getDamage());
+
 
 class Arm extends Weapon{
     constructor(){
-        super();
-        this.name = 'Рука';
-        this.attack = 1;
-        this.durability = Infinity;
-        this.range = 1;
+        super({name: 'Рука', attack: 1, durability: Infinity, range: 1});
     }
 }
 class Bow extends Weapon{
     constructor(){
-        super();
-        this.name = 'Лук';
-        this.attack = 10;
-        this.durability = 200;
-        this.range = 3;
-        this.firsDurab = this.durability;
+        super({name: 'Лук', attack: 10, durability: 200, range: 3});
     }
 }
 class Sword extends Weapon{
     constructor(){
-        super();
-        this.name = 'Меч';
-        this.attack = 25;
-        this.durability = 500;
-        this.range = 1;
-        this.firsDurab = this.durability;
+        super({name: 'Меч', attack: 25, durability: 500, range: 1});
     }
 }
 class Knife extends Weapon{
     constructor(){
-        super();
-        this.name = 'Нож';
-        this.attack = 5;
-        this.durability = 300;
-        this.range = 1;
-        this.firsDurab = this.durability;
+        super({name: 'Нож', attack: 5, durability: 300, range: 1});
     }
 }
 class Staff extends Weapon{
     constructor(){
-        super();
-        this.name = 'Посох';
-        this.attack = 8;
-        this.durability = 300;
-        this.range = 2;
-        this.firsDurab = this.durability;
+        super({name: 'Посох', attack: 8, durability: 300, range: 2});
     }
 }
 
 class LongBow extends Bow {
     constructor(){
-        super();
+        super()
         this.name = 'Длинный лук';
         this.attack = 15;
         this.range = 4;
-        this.firsDurab = this.durability;
     }
 }
 class Axe extends Sword {
@@ -204,7 +94,6 @@ class Axe extends Sword {
         this.name = 'Секира';
         this.attack = 27;
         this.durability = 800;
-        this.firsDurab = this.durability;
     }
 }
 class StormStaff extends Staff {
@@ -213,50 +102,65 @@ class StormStaff extends Staff {
         this.name = 'Посох Бури';
         this.attack = 10;
         this.range = 3;
-        this.firsDurab = this.durability;
     }
 }
 
-const bow = new Bow();
-const arm = new Arm();
-const sword = new Sword();
-const knife = new Knife();
-const staff = new Staff();
 
-const longBow = new LongBow(); 
-const axe = new Axe();
-const stormStaff = new StormStaff()
+// // {name: 'Посох Бури', attack: 10, range: 3}
+
+// // const bow = new Bow();
+// const arr = new Bow();
+// console.log(arr);
+// console.log(arr.name);
+// console.log(arr.attack);
+// console.log(arr.range);
+// const arm = new LongBow();
 
 
-// проверки
-// Проверки на корректное заполнение подклассов
-console.log(bow.name); 
-console.log(bow.attack); 
-console.log(bow.durability); 
-console.log(bow.range); 
+// console.log(arm);
+// console.log(arm.name);
+// console.log(arm.attack);
+// console.log(arm.range);
 
-console.log(longBow.name); 
-console.log(longBow.attack); 
-console.log(longBow.durability); 
-console.log(longBow.range); 
 
-// сила удара соперника < прочности, атака уменьшена
-bow.takeDamage(140);
-console.log(bow.durability); 
-console.log(bow.getDamage()); 
-console.log(bow.isBroken()); 
-// 60
-//  5
-// false
+// const sword = new Sword();
+// const knife = new Knife();
+// const staff = new Staff();
 
-// сила удара соперника < прочности,  атака не уменьшена(условие не выполнено)
-bow.takeDamage(160);
-console.log(bow.durability); 
-console.log(bow.getDamage()); 
-console.log(bow.isBroken()); 
-// 40
-// 10
-// false
+// const longBow = new LongBow(); 
+// const axe = new Axe();
+// const stormStaff = new StormStaff()
+
+
+// // проверки
+// // Проверки на корректное заполнение подклассов
+// console.log(bow.name); 
+// console.log(bow.attack); 
+// console.log(bow.durability); 
+// console.log(bow.range); 
+
+// console.log(longBow.name); 
+// console.log(longBow.attack); 
+// console.log(longBow.durability); 
+// console.log(longBow.range); 
+
+// // сила удара соперника < прочности, атака уменьшена
+// bow.takeDamage(140);
+// console.log(bow.durability); 
+// console.log(bow.getDamage()); 
+// console.log(bow.isBroken()); 
+// // 60
+// //  5
+// // false
+
+// // сила удара соперника < прочности,  атака не уменьшена(условие не выполнено)
+// bow.takeDamage(160);
+// console.log(bow.durability); 
+// console.log(bow.getDamage()); 
+// console.log(bow.isBroken()); 
+// // 40
+// // 10
+// // false
 
 
 // Задача 3
@@ -365,8 +269,8 @@ getTotalAverage(){
 
 }
 
-const log = new StudentLog('Олег Никифоров');
-console.log(log.getName()) // Олег Никифоров
+// const log = new StudentLog('Олег Никифоров');
+// console.log(log.getName()) // Олег Никифоров
 
 // console.log(log.addGrade(3, 'algebra'));
 // console.log(log.addGrade(5, 'geometry'));
@@ -383,12 +287,12 @@ console.log(log.getName()) // Олег Никифоров
 // console.log(log.getAverageBySubject('algebra')); // 3
 // console.log(log.getAverageBySubject('math')); // 0
 
-log.addGrade(2, 'algebra');
-log.addGrade(4, 'algebra');
-log.addGrade(5, 'geometry');
-log.addGrade(4, 'geometry');
+// log.addGrade(2, 'algebra');
+// log.addGrade(4, 'algebra');
+// log.addGrade(5, 'geometry');
+// log.addGrade(4, 'geometry');
 
-console.log(log.getTotalAverage()); // 3,75
+// console.log(log.getTotalAverage()); // 3,75
 
 
 
