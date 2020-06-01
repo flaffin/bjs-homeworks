@@ -4,23 +4,20 @@ function getSolutions(a, b, c)  {
 
     let rez = {}; 
     let x = [];
-    let x1;
-    let x2;
     
     let D = Math.pow(b, 2) - (4 * a * c);
 
     if (D === 0) {
         x[0] = -b / (2 * a);
-        x[1] = x[0];
+    
     } else if (D > 0) {
         x[0] = (-b + Math.sqrt(D)) / (2 * a); 
         x[1] = (-b - Math.sqrt(D)) / (2 * a);
     }
+    rez.D = D;
     rez.roots = x;
-    return {
-        D,
-        x,
-    }
+    console.log(rez);
+    return rez;
 }
 
 function showSolutionsMessage(a, b, c) {
@@ -89,6 +86,7 @@ function getAverageScore(data){
         data.average = overAverage /  numberKey ;
         }
         console.log(data); 
+        return data;
 
 }
 
@@ -110,16 +108,16 @@ function getAverageMark(marks){
     return averageKey;
 }
 
-getAverageScore(data);
+// getAverageScore(data);
 
-// Проверки
-getAverageMark([1,2,3,4,5,6,7,8,9,10]);
-// 5.5
-getAverageMark([]);
-// 0
-getAverageScore({});
-// {average: 0}
-// average: 0
+// // Проверки
+// getAverageMark([1,2,3,4,5,6,7,8,9,10]);
+// // 5.5
+// getAverageMark([]);
+// // 0
+// getAverageScore({});
+// // {average: 0}
+// // average: 0
 
 
 
@@ -134,6 +132,7 @@ function getPersonData(secretData){
   totalSecret.lastName = getDecodedValue(secretData.bbb);
 
   console.log(totalSecret);
+  return totalSecret;
 }
 
 function getDecodedValue(secret){
@@ -145,7 +144,7 @@ function getDecodedValue(secret){
         return 'Эмильо';
     }
 }
-getPersonData({ aaa : 0 ,  bbb : 0 });
-getPersonData({ aaa : 1 ,  bbb : 1 });
-getPersonData({ aaa : 1 ,  bbb : 0 });
-getPersonData({ aaa : 0 ,  bbb : 1 });
+// getPersonData({ aaa : 0 ,  bbb : 0 });
+// getPersonData({ aaa : 1 ,  bbb : 1 });
+// getPersonData({ aaa : 1 ,  bbb : 0 });
+// getPersonData({ aaa : 0 ,  bbb : 1 });
