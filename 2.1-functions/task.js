@@ -16,7 +16,8 @@ function getSolutions(a, b, c)  {
     }
     rez.D = D;
     rez.roots = x;
-    console.log(rez);
+    // console.log(rez);
+
     return rez;
 }
 
@@ -27,14 +28,16 @@ function showSolutionsMessage(a, b, c) {
     console.log(`Значение дискриминанта: ${result.D}`);
 
     if (result.D === 0) {
-        console.log(`Уравнение имеет один корень X₁ = ${result.x}`);
+        console.log(`Уравнение имеет один корень X₁ = ${result.roots}`);
     } else if (result.D > 0) {
-        console.log(`Уравнение имеет два корня. X₁ = ${result.x1}, X₂ = ${result.x2}`);
+        console.log(`Уравнение имеет два корня. X₁ = ${result.roots[0]}, X₂ = ${result.roots[1]}`);
     } else {
         console.log(`Уравнение не имеет вещественных корней`);
     }
 
 }
+
+showSolutionsMessage ( 7 , 20 , -3 );
 
 // showSolutionsMessage ( 1 ,  2 ,  3); 
 // showSolutionsMessage ( 7 ,  20 ,  -3 );
